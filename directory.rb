@@ -23,23 +23,28 @@ def print_header
   puts "-------------"
 end
 
-# print students whose names starts with "J"
-=begin
-def print(students)
-  students.each_with_index do |student, index|
-    if student[:name].start_with?("J","j")
-      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+# print students whose names starts with specific letter
+def print_first_letter(students, letter)
+  students.each do |student|
+    if student[:name].start_with?(letter)
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
     end
   end
 end
-=end
 
 # print only students whose name is longer than 12 characters
+def print_length(students, max_length)
+  students.each do |student|
+    if student[:name].length < max_length
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
+
+# print all students
 def print(students)
   students.each_with_index do |student, index|
-    if student[:name].length > 12
-      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-    end
+    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
@@ -51,3 +56,7 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
+print_header
+print_first_letter(students, "J")
+print_header
+print_length(students, 12)
