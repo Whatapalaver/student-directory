@@ -42,6 +42,14 @@ def print_length(students, max_length)
 end
 
 # print all students
+def print_while(students)
+  i = 0
+  until i == students.length
+    puts "#{i + 1}. #{students[i][:name]} (#{students[i][:cohort]} cohort)"
+    i += 1
+  end
+end
+
 def print(students)
   students.each_with_index do |student, index|
     puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
@@ -55,6 +63,8 @@ end
 students = input_students
 print_header
 print(students)
+print_header
+print_while(students)
 print_footer(students)
 print_header
 print_first_letter(students, "J")
