@@ -63,11 +63,31 @@ def print(students)
   end
 end
 
+def print_by_category(students)
+  # print the students grouped by cohort
+  cohort_array = []
+    students.each do |hash|
+      cohort_array.push(hash[:cohort]).uniq!
+    end
+
+    cohort_array.each do |cohort|
+      puts cohort
+      students.each_with_index do |student, index|
+        if student[:cohort] == cohort
+          puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(50)
+        end
+      end
+    end
+end
+
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
 
 students = input_students
+print_header
+print_by_category(students)
+puts ""
 print_header
 print(students)
 puts ""
