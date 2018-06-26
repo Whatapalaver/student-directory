@@ -19,8 +19,8 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(50)
+  puts "-".center(50,"-")
 end
 
 # print students whose names starts with specific letter
@@ -63,10 +63,13 @@ end
 students = input_students
 print_header
 print(students)
+puts ""
 print_header
 print_while(students)
 print_footer(students)
+puts ""
 print_header
 print_first_letter(students, "J")
+puts ""
 print_header
 print_length(students, 12)
