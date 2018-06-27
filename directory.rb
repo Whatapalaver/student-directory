@@ -52,7 +52,7 @@ def input_students
     if cohort.empty?
       @students << {name: name, cohort: :november}
     else
-      @students << {name: name, cohort: cohort.to_sym}
+      push_to_students(name, cohort)
     end
     if @students.count > 0
       puts "Now we have #{@students.count} students"
@@ -105,21 +105,26 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    push_to_students(name, cohort)
   end
   file.close
 end
 
 def try_load_students
   filename = ARGV.first # first argument from the command csv_line
-  return if filename.nil? # leave method if argument isn't given
-  if File.exists?(filename)
+  if filename.nil?
+    load_students
+  elsif File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else # if file doesn't exist
     puts "Sorry #{filename} doesn't exist"
     exit
   end
+end
+
+def push_to_students(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 
