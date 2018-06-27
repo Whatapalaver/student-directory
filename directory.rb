@@ -1,3 +1,28 @@
+def interactive_menu
+  students = []
+  loop do
+    # 1. Print the menu and user what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    # 2. read the input and save it to a variable
+    selection = gets.chomp
+    # 3. do what the user has asked
+    case selection
+    when "1"
+      students = input_students
+    when "2"
+      print_header(students)
+      print(students)
+      print_footer(students)
+    when "9"
+      exit
+    else
+      puts "I don't know what you mean, try again"
+    end
+  end
+end
+
 # let's put all the students into an array
 def input_students
   puts "Please enter the names of the students"
@@ -90,25 +115,10 @@ def print_footer(students)
   if students.count > 0
     if students.count > 1
       puts "Overall, we have #{students.count} great students"
-    else students.count = 1
+    else students.count == 1
       puts "Overall, we have only 1 great student"
     end
   end
 end
 
-students = input_students
-print_header(students)
-print_by_category(students)
-puts ""
-print_header(students)
-print(students)
-puts ""
-print_header(students)
-print_while(students)
-print_footer(students)
-puts ""
-print_header(students)
-print_first_letter(students, "J")
-puts ""
-print_header(students)
-print_length(students, 12)
+interactive_menu
