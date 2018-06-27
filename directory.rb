@@ -3,7 +3,7 @@
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -43,11 +43,11 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   # get the first name
-  name = gets.chomp
+  name = STDIN.gets.chomp
   # while name is not empty, repeat this code
   while !name.empty? do
     puts "Enter cohort"
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
     # add the student hash to the array
     if cohort.empty?
       @students << {name: name, cohort: :november}
@@ -61,7 +61,7 @@ def input_students
     end
     # get another name from the user
     puts "Enter name"
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
 end
 
@@ -84,6 +84,7 @@ def print_footer
       puts "Overall, we have #{@students.count} great students"
     else @students.count == 1
       puts "Overall, we have only 1 great student"
+      puts ""
     end
   end
 end
@@ -100,14 +101,27 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
+
+def try_load_students
+  filename = ARGV.first # first argument from the command csv_line
+  return if filename.nil? # leave method if argument isn't given
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else # if file doesn't exist
+    puts "Sorry #{filename} doesn't exist"
+    exit
+  end
+end
+
 
 # Commented out section below relates to other print options
 # Exercise answers no longer required
@@ -158,5 +172,5 @@ def print_by_category
 end
 =end
 
-
+try_load_students
 interactive_menu
