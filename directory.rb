@@ -10,8 +10,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to specific file"
+  puts "4. Load the list from specific file"
   puts "9. Exit"
 end
 
@@ -32,9 +32,21 @@ def process(selection)
   when "2"
     show_students
   when "3"
-    save_students
+    puts "Enter filename or leave blank for students.csv"
+    savename = STDIN.gets.chomp
+    if savename.empty?
+      save_students
+    else
+      save_students(savename)
+    end
   when "4"
-    load_students
+    puts "Enter filename or leave blank for students.csv"
+    loadname = STDIN.gets.chomp
+    if loadname.empty?
+      load_students
+    else
+      load_students(loadname)
+    end
   when "9"
     exit
   else
@@ -88,9 +100,9 @@ def print_footer
   end
 end
 
-def save_students
+def save_students(filename = "students.csv")
   # open file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   # iterate over teh array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -98,7 +110,7 @@ def save_students
     file.puts csv_line
   end
   file.close
-  puts "Student list saved to file"
+  puts "Student list saved to #{filename}"
 end
 
 def load_students(filename = "students.csv")
@@ -108,7 +120,7 @@ def load_students(filename = "students.csv")
     push_to_students(name, cohort)
   end
   file.close
-  puts "Loaded #{@students.count} from #{filename}"
+  puts "Loaded list from #{filename}"
 end
 
 def try_load_students
