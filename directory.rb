@@ -16,9 +16,13 @@ def print_menu
 end
 
 def show_students
-  print_header
-  print_students_list
-  print_footer
+  if @students.count > 0
+    print_header
+    print_students_list
+    print_footer
+  else
+    puts "We have zero students at the moment"
+  end
 end
 
 def process(selection)
@@ -54,7 +58,7 @@ def input_students
     else
       push_to_students(name, cohort)
     end
-    if @students.count > 0
+    if @students.count > 1
       puts "Now we have #{@students.count} students"
     else
       puts "Now we have 1 student"
@@ -66,10 +70,8 @@ def input_students
 end
 
 def print_header
-  if @students.count > 0
     puts "The students of Villains Academy".center(50)
     puts "-".center(50,"-")
-  end
 end
 
 def print_students_list
@@ -79,13 +81,10 @@ def print_students_list
 end
 
 def print_footer
-  if @students.count > 0
-    if @students.count > 1
-      puts "Overall, we have #{@students.count} great students"
-    else @students.count == 1
-      puts "Overall, we have only 1 great student"
-      puts ""
-    end
+  if @students.count > 1
+    puts "Overall, we have #{@students.count} great students"
+  else @students.count == 1
+    puts "Overall, we have only 1 great student"
   end
 end
 
