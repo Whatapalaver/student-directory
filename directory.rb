@@ -16,7 +16,11 @@ def input_students
     else
       students << {name: name, cohort: cohort.to_sym}
     end
-    puts "Now we have #{students.count} students"
+    if students.count > 1
+      puts "Now we have #{students.count} students"
+    else
+      puts "Now we have 1 student"
+    end
     # get another name from the user
     puts "Enter name"
     name = gets.chomp
@@ -81,7 +85,11 @@ def print_by_category(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  if students.count > 1
+    puts "Overall, we have #{students.count} great students"
+  else
+    puts "Overall, we have only 1 great student"
+  end
 end
 
 students = input_students
