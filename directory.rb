@@ -29,9 +29,11 @@ def input_students
   students
 end
 
-def print_header
-  puts "The students of Villains Academy".center(50)
-  puts "-".center(50,"-")
+def print_header(students)
+  if students.count > 0
+    puts "The students of Villains Academy".center(50)
+    puts "-".center(50,"-")
+  end
 end
 
 # print students whose names starts with specific letter
@@ -85,26 +87,28 @@ def print_by_category(students)
 end
 
 def print_footer(students)
-  if students.count > 1
-    puts "Overall, we have #{students.count} great students"
-  else
-    puts "Overall, we have only 1 great student"
+  if students.count > 0
+    if students.count > 1
+      puts "Overall, we have #{students.count} great students"
+    else students.count = 1
+      puts "Overall, we have only 1 great student"
+    end
   end
 end
 
 students = input_students
-print_header
+print_header(students)
 print_by_category(students)
 puts ""
-print_header
+print_header(students)
 print(students)
 puts ""
-print_header
+print_header(students)
 print_while(students)
 print_footer(students)
 puts ""
-print_header
+print_header(students)
 print_first_letter(students, "J")
 puts ""
-print_header
+print_header(students)
 print_length(students, 12)
